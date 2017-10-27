@@ -1,0 +1,14 @@
+# Overall
+
+.classpath
+.project
+.settings
+*.log
+
+# General
+
+*.class
+
+# Package Files
+
+*.jar
