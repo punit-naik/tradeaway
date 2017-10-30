@@ -1,12 +1,15 @@
 package com.tradeaway.model;
 
 import javax.persistence.Entity;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Entity
 public class Seller extends User {
 
+    @NotNull
     private String pan;
+    @NotNull
     private int experience;
 
     public String getPan() {

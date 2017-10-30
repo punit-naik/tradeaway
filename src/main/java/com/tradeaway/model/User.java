@@ -1,18 +1,28 @@
 package com.tradeaway.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 @MappedSuperclass
 public abstract class User {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private long id;
-
+    @NotNull
     private String name;
+    @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\."
+            +"[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@"
+            +"(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?",
+            message="{invalid.email}")
 	private String email;
-	private String userName;
+	@NotNull
+    private String userName;
+	@NotNull
 	private String password;
+	@NotNull
 	private String address;
+	@Pattern(regexp="[0-9]\\+")
 	private String mobile;
 
 	public void setId(long id) {
