@@ -23,9 +23,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.tradeaway.model.UserRepository;
+import com.tradeaway.model.BuyerRepository;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,26 +53,26 @@ public class ApplicationTest {
     }
 
     @Autowired
-    private UserRepository userRepository;
+    private BuyerRepository buyerRepository;
 
     @Before
     public void deleteAllBeforeTests() throws Exception {
-        userRepository.deleteAll();
+        buyerRepository.deleteAll();
     }
 
     @Test
     public void shouldCreateEntity() throws Exception {
 
-        mockMvc.perform(post("/user").content(
+        mockMvc.perform(post("/buyer").content(
                 "{\"name\": \"Frodo\"}")).andExpect(
                 status().isCreated()).andExpect(
-                header().string("Location", containsString("user/")));
+                header().string("Location", containsString("buyer/")));
     }
 
     @Test
     public void shouldRetrieveEntity() throws Exception {
 
-        MvcResult mvcResult = mockMvc.perform(post("/user").content(
+        MvcResult mvcResult = mockMvc.perform(post("/buyer").content(
                 "{\"name\": \"Frodo\"}")).andExpect(
                 status().isCreated()).andReturn();
 
@@ -85,21 +84,21 @@ public class ApplicationTest {
     @Test
     public void shouldQueryEntity() throws Exception {
 
-        mockMvc.perform(post("/user").content(
+        mockMvc.perform(post("/buyer").content(
                 "{ \"name\": \"Baggins\"}")).andExpect(
                 status().isCreated());
 
         mockMvc.perform(
-                get("/user/search/findByName?name={name}", "Baggins")).andExpect(
+                get("/buyer/search/findByName?name={name}", "Baggins")).andExpect(
                 status().isOk()).andExpect(
-                jsonPath("$._embedded.user[0].name").value(
+                jsonPath("$._embedded.buyer[0].name").value(
                         "Baggins"));
     }
 
     @Test
     public void shouldUpdateEntity() throws Exception {
 
-        MvcResult mvcResult = mockMvc.perform(post("/user").content(
+        MvcResult mvcResult = mockMvc.perform(post("/buyer").content(
                 "{\"name\": \"Frodo\"}")).andExpect(
                 status().isCreated()).andReturn();
 
@@ -116,7 +115,7 @@ public class ApplicationTest {
     @Test
     public void shouldPartiallyUpdateEntity() throws Exception {
 
-        MvcResult mvcResult = mockMvc.perform(post("/user").content(
+        MvcResult mvcResult = mockMvc.perform(post("/buyer").content(
                 "{\"name\": \"Frodo\"}")).andExpect(
                 status().isCreated()).andReturn();
 
@@ -133,7 +132,7 @@ public class ApplicationTest {
     @Test
     public void shouldDeleteEntity() throws Exception {
 
-        MvcResult mvcResult = mockMvc.perform(post("/user").content(
+        MvcResult mvcResult = mockMvc.perform(post("/buyer").content(
                 "{ \"name\": \"Bilbo\"}")).andExpect(
                 status().isCreated()).andReturn();
 
