@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package hello;
+package com.tradeaway;
 
 import static org.hamcrest.Matchers.containsString;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -23,6 +23,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import com.tradeaway.model.UserRepository;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -49,22 +50,8 @@ public class ApplicationTest {
     public void homePage() throws Exception {
         // N.B. jsoup can be useful for asserting HTML content
         mockMvc.perform(get("/index.html"))
-                .andExpect(content().string(containsString("Get your greeting")));
+                .andExpect(content().string(containsString("Welcome to TradeAway")));
     }
-
-    @Test
-    public void greeting() throws Exception {
-        mockMvc.perform(get("/greeting"))
-                .andExpect(content().string(containsString("Hello, World!")));
-    }
-
-    @Test
-    public void greetingWithUser() throws Exception {
-        mockMvc.perform(get("/greeting").param("name", "Greg"))
-                .andExpect(content().string(containsString("Hello, Greg!")));
-    }
-
-
 
     @Autowired
     private UserRepository userRepository;

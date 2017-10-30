@@ -1,8 +1,6 @@
-package hello;
+package com.tradeaway.model;
 
-import org.springframework.data.repository.CrudRepository;
-
-import hello.User;
+import com.tradeaway.model.User;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
