@@ -8,8 +8,8 @@ Run ``build.sh`` to build the service
 
 ## Usage
 
-Run `` `` to run the service
+Run ``./gradlew bootRun`` to run the service
 
 ## Test
 
-Run `` `` to run the tests
+Run ``./gradlew test`` to run the tests
