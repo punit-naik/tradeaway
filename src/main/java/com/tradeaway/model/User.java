@@ -22,7 +22,7 @@ public abstract class User {
 	private String password;
 	@NotNull
 	private String address;
-	@Pattern(regexp="[0-9]\\+")
+	@Pattern(regexp="\\d+")
 	private String mobile;
 
 	public void setId(long id) {
