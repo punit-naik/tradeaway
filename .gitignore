@@ -20,7 +20,7 @@
 *.iws
 .idea/
 
-#Gradle
+# Gradle
 
 .gradletasknamecache
 .gradle/
@@ -28,7 +28,7 @@ build/
 bin/
 !gradle-wrapper.jar
 
-#Spring
+# Spring
 
 out/
 .DS_Store
