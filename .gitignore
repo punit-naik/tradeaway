@@ -26,6 +26,7 @@
 .gradle/
 build/
 bin/
+!gradle-wrapper.jar
 
 #Spring
 
