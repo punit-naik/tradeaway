@@ -11,11 +11,56 @@ public class User {
     @GeneratedValue(strategy=GenerationType.AUTO)
     private long id;
 
-	private String firstName;
-	private String lastName;
+    private String name;
+	private String email;
+	private String userName;
+	private String password;
+	private String address;
+	private String mobile;
 
+	public void setId(long id) {
+		this.id = id;
+	}
 
-    private String email;
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getMobile() {
+		return mobile;
+	}
+
+	public void setMobile(String mobile) {
+		this.mobile = mobile;
+	}
 
 	public long getId() {
 		return id;
@@ -25,8 +70,6 @@ public class User {
 		this.id = id;
 	}
 
-
-
 	public String getEmail() {
 		return email;
 	}
@@ -34,23 +77,6 @@ public class User {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
-	public String getFirstName() {
-		return firstName;
-	}
-
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-
-	public String getLastName() {
-		return lastName;
-	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
-    
     
 }
 

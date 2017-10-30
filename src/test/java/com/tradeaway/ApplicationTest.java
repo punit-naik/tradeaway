@@ -62,18 +62,10 @@ public class ApplicationTest {
     }
 
     @Test
-    @Ignore
-    public void shouldReturnRepositoryIndex() throws Exception {
-
-        mockMvc.perform(get("/")).andDo(print()).andExpect(status().isOk()).andExpect(
-                jsonPath("$._links.user").exists());
-    }
-
-    @Test
     public void shouldCreateEntity() throws Exception {
 
         mockMvc.perform(post("/user").content(
-                "{\"firstName\": \"Frodo\", \"lastName\":\"Baggins\"}")).andExpect(
+                "{\"name\": \"Frodo\"}")).andExpect(
                 status().isCreated()).andExpect(
                 header().string("Location", containsString("user/")));
     }
@@ -82,70 +74,67 @@ public class ApplicationTest {
     public void shouldRetrieveEntity() throws Exception {
 
         MvcResult mvcResult = mockMvc.perform(post("/user").content(
-                "{\"firstName\": \"Frodo\", \"lastName\":\"Baggins\"}")).andExpect(
+                "{\"name\": \"Frodo\"}")).andExpect(
                 status().isCreated()).andReturn();
 
         String location = mvcResult.getResponse().getHeader("Location");
         mockMvc.perform(get(location)).andExpect(status().isOk()).andExpect(
-                jsonPath("$.firstName").value("Frodo")).andExpect(
-                jsonPath("$.lastName").value("Baggins"));
+                jsonPath("$.name").value("Frodo"));
     }
 
     @Test
     public void shouldQueryEntity() throws Exception {
 
         mockMvc.perform(post("/user").content(
-                "{ \"firstName\": \"Frodo\", \"lastName\":\"Baggins\"}")).andExpect(
+                "{ \"name\": \"Baggins\"}")).andExpect(
                 status().isCreated());
 
         mockMvc.perform(
-                get("/user/search/findByLastName?name={name}", "Baggins")).andExpect(
+                get("/user/search/findByName?name={name}", "Baggins")).andExpect(
                 status().isOk()).andExpect(
-                jsonPath("$._embedded.user[0].firstName").value(
-                        "Frodo"));
+                jsonPath("$._embedded.user[0].name").value(
+                        "Baggins"));
     }
 
     @Test
     public void shouldUpdateEntity() throws Exception {
 
         MvcResult mvcResult = mockMvc.perform(post("/user").content(
-                "{\"firstName\": \"Frodo\", \"lastName\":\"Baggins\"}")).andExpect(
+                "{\"name\": \"Frodo\"}")).andExpect(
                 status().isCreated()).andReturn();
 
         String location = mvcResult.getResponse().getHeader("Location");
 
         mockMvc.perform(put(location).content(
-                "{\"firstName\": \"Bilbo\", \"lastName\":\"Baggins\"}")).andExpect(
+                "{\"name\": \"Bilbo\"}")).andExpect(
                 status().isNoContent());
 
         mockMvc.perform(get(location)).andExpect(status().isOk()).andExpect(
-                jsonPath("$.firstName").value("Bilbo")).andExpect(
-                jsonPath("$.lastName").value("Baggins"));
+                jsonPath("$.name").value("Bilbo"));
     }
 
     @Test
     public void shouldPartiallyUpdateEntity() throws Exception {
 
         MvcResult mvcResult = mockMvc.perform(post("/user").content(
-                "{\"firstName\": \"Frodo\", \"lastName\":\"Baggins\"}")).andExpect(
+                "{\"name\": \"Frodo\"}")).andExpect(
                 status().isCreated()).andReturn();
 
         String location = mvcResult.getResponse().getHeader("Location");
 
         mockMvc.perform(
-                patch(location).content("{\"firstName\": \"Bilbo Jr.\"}")).andExpect(
+                patch(location).content("{\"name\": \"Bilbo Jr.\"}")).andExpect(
                 status().isNoContent());
 
         mockMvc.perform(get(location)).andExpect(status().isOk()).andExpect(
-                jsonPath("$.firstName").value("Bilbo Jr.")).andExpect(
-                jsonPath("$.lastName").value("Baggins"));
+                jsonPath("$.name").value("Bilbo Jr."));
     }
 
     @Test
     public void shouldDeleteEntity() throws Exception {
 
         MvcResult mvcResult = mockMvc.perform(post("/user").content(
-                "{ \"firstName\": \"Bilbo\", \"lastName\":\"Baggins\"}")).andExpect(
+                "{ \"name\": \"Bilbo\"}")).andExpect(
                 status().isCreated()).andReturn();
 
         String location = mvcResult.getResponse().getHeader("Location");
