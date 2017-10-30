@@ -12,3 +12,22 @@
 # Package Files
 
 *.jar
+
+# Intellij project files
+
+*.iml
+*.ipr
+*.iws
+.idea/
+
+#Gradle
+
+.gradletasknamecache
+.gradle/
+build/
+bin/
+
+#Spring
+
+out/
+.DS_Store
