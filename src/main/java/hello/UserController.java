@@ -11,7 +11,7 @@ import hello.User;
 import hello.UserRepository;
 
 @Controller
-@RequestMapping(path="/user")
+@RequestMapping(path="/userOld")
 public class UserController {
 	@Autowired
 	private UserRepository userRepository;
@@ -20,7 +20,7 @@ public class UserController {
 	public @ResponseBody String addNewUser (@RequestParam String name
 			, @RequestParam String email) {
 		User n = new User();
-		n.setName(name);
+		n.setFirstName(name);
 		n.setEmail(email);
 		userRepository.save(n);
 		return "Saved";
