@@ -8,11 +8,13 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.AuthenticationEntryPoint;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -33,18 +35,26 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable().cors().and().authorizeRequests()
                     .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-                    .antMatchers("/", "/seller", "/buyer" ,"/login").permitAll()
-                    .antMatchers("/**").hasAnyRole()
-                    .anyRequest().authenticated().and().
+                    .antMatchers("/**").permitAll().and().
+                    /*.antMatchers("/**").hasAnyRole()*/
+                    /*.anyRequest().authenticated().and().*/
                /* formLogin().loginPage("/login").permitAll().and().*/
-                    httpBasic().authenticationEntryPoint(authenticationEntryPoint).and().
-                logout().logoutUrl("/logout").permitAll();
+                    httpBasic().authenticationEntryPoint(authenticationEntryPoint);
+                /*logout().logoutUrl("/logout").invalidateHttpSession(true).clearAuthentication(true).deleteCookies("JSESSIONID").permitAll()*/
+                /*http.logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                .logoutSuccessUrl("/logout.done").deleteCookies("JSESSIONID")
+                .invalidateHttpSession(true) ;*/
     }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.jdbcAuthentication().dataSource(dataSource).usersByUsernameQuery("select user_name as username, password, true as enabled from buyer where user_name =?")
-        .authoritiesByUsernameQuery("select user_name as username, 'BUYER' from buyer where user_name =?");
+        .authoritiesByUsernameQuery("select user_name as username, 'ROLE_BUYER' from buyer where user_name =?");
+    }
+
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+        web.ignoring().antMatchers("/seller", "/buyer" , "/logout");
     }
 
     @Bean
