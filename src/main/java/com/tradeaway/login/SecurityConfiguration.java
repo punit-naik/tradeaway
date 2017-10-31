@@ -33,11 +33,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable().cors().and().authorizeRequests()
                     .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-                    .antMatchers("/", "/seller", "/buyer").permitAll()
+                    .antMatchers("/", "/seller", "/buyer" ,"/login").permitAll()
                     .antMatchers("/**").hasAnyRole()
                     .anyRequest().authenticated().and().
-                formLogin().loginPage("/login").permitAll().and().
-                    /*httpBasic().authenticationEntryPoint(authenticationEntryPoint).and().*/
+               /* formLogin().loginPage("/login").permitAll().and().*/
+                    httpBasic().authenticationEntryPoint(authenticationEntryPoint).and().
                 logout().logoutUrl("/logout").permitAll();
     }
 
