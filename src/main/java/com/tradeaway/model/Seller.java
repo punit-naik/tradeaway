@@ -1,9 +1,6 @@
 package com.tradeaway.model;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.Set;
@@ -15,8 +12,9 @@ public class Seller extends User {
     private String pan;
     @NotNull
     private int experience;
-    @OneToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
-    private Set<Item> items;
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name="seller_id")
+    private Set<Inventory> items;
 
     public String getPan() {
         return pan;
@@ -34,12 +32,12 @@ public class Seller extends User {
         this.experience = experience;
     }
 
-    public Set<Item> getItems()
+    public Set<Inventory> getItems()
     {
         return this.items;
     }
 
-    public void setItems(Set<Item> items)
+    public void setItems(Set<Inventory> items)
     {
         this.items = items;
     }
