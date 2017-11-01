@@ -10,7 +10,12 @@ import java.util.List;
 
     @RepositoryRestResource(collectionResourceRel = "orders", path = "orders")
     public interface OrdersRepository extends PagingAndSortingRepository<Orders, Long> {
-        List<User> findById(@Param("id") long id);
+
+        Orders findById(@Param("id") long id);
+
+        List<Orders> findBySeller(@Param("id") Seller seller);
+
+
     }
 
 
