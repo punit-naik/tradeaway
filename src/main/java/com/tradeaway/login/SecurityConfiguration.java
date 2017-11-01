@@ -35,7 +35,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable().cors().and().authorizeRequests()
                     .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-                    .antMatchers("/**").permitAll().and().
+                    .antMatchers("/**").authenticated().and().
                     /*.antMatchers("/**").hasAnyRole()*/
                     /*.anyRequest().authenticated().and().*/
                /* formLogin().loginPage("/login").permitAll().and().*/
@@ -57,7 +57,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/seller", "/buyer" , "/logout");
+        web.ignoring().antMatchers(HttpMethod.POST , "/seller", "/buyer" , "/logout");
     }
 
     @Bean
