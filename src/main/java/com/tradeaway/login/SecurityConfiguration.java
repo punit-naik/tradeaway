@@ -48,8 +48,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.jdbcAuthentication().dataSource(dataSource).usersByUsernameQuery("select user_name as username, password, true as enabled from buyer where user_name =?")
-        .authoritiesByUsernameQuery("select user_name as username, 'ROLE_BUYER' from buyer where user_name =?");
+        auth.jdbcAuthentication().dataSource(dataSource).usersByUsernameQuery("select * from (" +
+                "select user_name as username, password, true as enabled from buyer union " +
+                "select user_name as username, password, true as enabled from seller) A where username = ?")
+                .authoritiesByUsernameQuery("select * from (select user_name as username, 'ROLE_FOO'  from buyer union "+
+                "select user_name as username, 'ROLE_FOO' from seller ) B where username =?");
     }
 
     @Override
