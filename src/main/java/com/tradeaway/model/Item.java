@@ -4,6 +4,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import java.util.Date;
+import java.util.Set;
 
 @Entity
 public class Item {
@@ -11,9 +12,6 @@ public class Item {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private long id;
-    @ManyToOne(cascade= CascadeType.ALL)
-    @JoinColumn(name = "seller_id")
-    private Seller sellerId;
     @NotNull
     private String name;
     @NotNull
@@ -21,10 +19,10 @@ public class Item {
     private String imgUrl;
     @NotNull
     private String shortDesc;
-    @Pattern(regexp="\\d+")
-    private int quantity;
-    @Pattern(regexp="\\d+")
-    private int price;
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name="item_id")
+    private Set<Inventory> items;
 
     public long getId() {
         return id;
@@ -66,27 +64,13 @@ public class Item {
         this.shortDesc = shortDesc;
     }
 
-    public int getQuantity() {
-        return quantity;
+    public Set<Inventory> getItems()
+    {
+        return this.items;
     }
 
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
+    public void setItems(Set<Inventory> items)
+    {
+        this.items = items;
     }
-
-    public int getPrice() {
-        return price;
-    }
-
-    public void setPrice(int price) {
-        this.price = price;
-    }
-    public Seller getSellerId() {
-        return this.sellerId;
-    }
-
-    public void setSellerID(Seller sellerId) {
-        this.sellerId = sellerId;
-    }
-
 }

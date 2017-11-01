@@ -9,4 +9,5 @@ import java.util.List;
 @RepositoryRestResource(collectionResourceRel = "buyer", path = "buyer")
 public interface BuyerRepository extends PagingAndSortingRepository<Buyer, Long> {
     List<User> findByName(@Param("name") String name);
+    List<User> findByUserName(@Param("userName") String userName);
 }

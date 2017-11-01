@@ -40,7 +40,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
-public class ApplicationTest {
+public class BuyerTest {
 
     private String buyerMockData = "{\"name\":\"stark\", \"email\":\"blah.blah@xyz.com\",\"userName\":\"team_stark\",\"password\":\"blahblah\",\"address\":\"asdsad, asdasd,asda\"}";
 
