@@ -90,7 +90,7 @@ public class BuyerTest {
         mockMvc.perform(
                 get("/buyer/search/findByName?name={name}", "stark")).andExpect(
                 status().isOk()).andExpect(
-                jsonPath("$._embedded.buyer[0].name").value(
+                jsonPath("$.content[0].name").value(
                         "stark"));
     }
 

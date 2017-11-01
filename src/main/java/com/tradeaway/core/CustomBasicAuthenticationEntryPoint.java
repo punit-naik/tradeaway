@@ -1,4 +1,4 @@
-package com.tradeaway.login;
+package com.tradeaway.core;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.security.core.AuthenticationException;
