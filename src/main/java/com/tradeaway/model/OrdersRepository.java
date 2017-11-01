@@ -13,7 +13,10 @@ import java.util.List;
 
         Orders findById(@Param("id") long id);
 
-        List<Orders> findBySeller(@Param("id") Seller seller);
+        //List<Orders> findBySeller(@Param("id") Seller seller);
+
+        List<Orders> findBySellerId(@Param("id") long id);
+
 
 
     }
