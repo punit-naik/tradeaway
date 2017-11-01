@@ -22,7 +22,7 @@ public class Item {
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name="item_id")
-    private Set<Inventory> items;
+    private Set<Inventory> inventories;
 
     public long getId() {
         return id;
@@ -64,13 +64,13 @@ public class Item {
         this.shortDesc = shortDesc;
     }
 
-    public Set<Inventory> getItems()
+    public Set<Inventory> getInventories()
     {
-        return this.items;
+        return this.inventories;
     }
 
-    public void setItems(Set<Inventory> items)
+    public void setInventories(Set<Inventory> inventories)
     {
-        this.items = items;
+        this.inventories = inventories;
     }
 }

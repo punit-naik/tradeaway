@@ -2,7 +2,6 @@ package com.tradeaway.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.Date;
 import java.util.Set;
 
 @Entity
@@ -14,7 +13,7 @@ public class Seller extends User {
     private int experience;
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name="seller_id")
-    private Set<Inventory> items;
+    private Set<Inventory> inventories;
 
     public String getPan() {
         return pan;
@@ -32,13 +31,13 @@ public class Seller extends User {
         this.experience = experience;
     }
 
-    public Set<Inventory> getItems()
+    public Set<Inventory> getInventories()
     {
-        return this.items;
+        return this.inventories;
     }
 
-    public void setItems(Set<Inventory> items)
+    public void setInventories(Set<Inventory> inventories)
     {
-        this.items = items;
+        this.inventories = inventories;
     }
 }
