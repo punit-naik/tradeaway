@@ -16,14 +16,7 @@
 
 package com.tradeaway;
 
-import static org.hamcrest.Matchers.containsString;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
-import com.tradeaway.model.BuyerRepository;
+import com.tradeaway.model.SellerRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -34,15 +27,16 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
+import static org.hamcrest.Matchers.containsString;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
-public class BuyerTest {
+public class SellerTest {
 
-    private String buyerMockData = "{\"name\":\"stark\", \"email\":\"blah.blah@xyz.com\",\"userName\":\"team_stark\",\"password\":\"blahblah\",\"address\":\"asdsad, asdasd,asda\"}";
+    private String sellerMockData = "{\"name\":\"starkSeller\", \"email\":\"blah.blah.seller@xyz.com\",\"userName\":\"team_stark_seller\",\"password\":\"blahblah\",\"address\":\"asdsad, asdasd,asda\",\"pan\":\"azuij1254f\",\"experience\":\"2\"}";
 
     @Autowired
     private MockMvc mockMvc;
@@ -55,64 +49,64 @@ public class BuyerTest {
     }
 
     @Autowired
-    private BuyerRepository buyerRepository;
+    private SellerRepository sellerRepository;
 
     @Before
     public void deleteAllBeforeTests() throws Exception {
-        buyerRepository.deleteAll();
+        sellerRepository.deleteAll();
     }
 
     @Test
     public void shouldCreateEntity() throws Exception {
 
-        mockMvc.perform(post("/buyer").content(buyerMockData)).andExpect(
+        mockMvc.perform(post("/seller").content(sellerMockData)).andExpect(
                 status().isCreated()).andExpect(
-                header().string("Location", containsString("buyer/")));
+                header().string("Location", containsString("seller/")));
     }
 
     @Test
     public void shouldRetrieveEntity() throws Exception {
 
-        MvcResult mvcResult = mockMvc.perform(post("/buyer").content(buyerMockData)).andExpect(
+        MvcResult mvcResult = mockMvc.perform(post("/seller").content(sellerMockData)).andExpect(
                 status().isCreated()).andReturn();
 
         String location = mvcResult.getResponse().getHeader("Location");
         mockMvc.perform(get(location)).andExpect(status().isOk()).andExpect(
-                jsonPath("$.name").value("stark"));
+                jsonPath("$.name").value("starkSeller"));
     }
 
     @Test
     public void shouldQueryEntity() throws Exception {
 
-        mockMvc.perform(post("/buyer").content(buyerMockData)).andExpect(
+        mockMvc.perform(post("/seller").content(sellerMockData)).andExpect(
                 status().isCreated());
 
         mockMvc.perform(
-                get("/buyer/search/findByName?name={name}", "stark")).andExpect(
+                get("/seller/search/findByName?name={name}", "starkSeller")).andExpect(
                 status().isOk()).andExpect(
-                jsonPath("$.content[0].name").value(
-                        "stark"));
+                jsonPath("$._embedded.seller[0].name").value(
+                        "starkSeller"));
     }
 
     @Test
     public void shouldUpdateEntity() throws Exception {
 
-        MvcResult mvcResult = mockMvc.perform(post("/buyer").content(buyerMockData)).andExpect(
+        MvcResult mvcResult = mockMvc.perform(post("/seller").content(sellerMockData)).andExpect(
                 status().isCreated()).andReturn();
 
         String location = mvcResult.getResponse().getHeader("Location");
 
-        mockMvc.perform(put(location).content(buyerMockData)).andExpect(
+        mockMvc.perform(put(location).content(sellerMockData)).andExpect(
                 status().isNoContent());
 
         mockMvc.perform(get(location)).andExpect(status().isOk()).andExpect(
-                jsonPath("$.name").value("stark"));
+                jsonPath("$.name").value("starkSeller"));
     }
 
     @Test
     public void shouldPartiallyUpdateEntity() throws Exception {
 
-        MvcResult mvcResult = mockMvc.perform(post("/buyer").content(buyerMockData)).andExpect(
+        MvcResult mvcResult = mockMvc.perform(post("/seller").content(sellerMockData)).andExpect(
                 status().isCreated()).andReturn();
 
         String location = mvcResult.getResponse().getHeader("Location");
@@ -128,7 +122,7 @@ public class BuyerTest {
     @Test
     public void shouldDeleteEntity() throws Exception {
 
-        MvcResult mvcResult = mockMvc.perform(post("/buyer").content(buyerMockData)).andExpect(
+        MvcResult mvcResult = mockMvc.perform(post("/seller").content(sellerMockData)).andExpect(
                 status().isCreated()).andReturn();
 
         String location = mvcResult.getResponse().getHeader("Location");
