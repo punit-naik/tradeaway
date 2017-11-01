@@ -1,8 +1,6 @@
 package com.tradeaway.model;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
 
 @Entity
 public class Inventory {
@@ -11,10 +9,8 @@ public class Inventory {
     @GeneratedValue
     private Long id;
 
-    @Pattern(regexp="\\d+")
     private int quantity;
 
-    @Pattern(regexp="\\d+")
     private int price;
 
     public Long getId() {
