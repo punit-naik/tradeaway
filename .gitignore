@@ -24,6 +24,7 @@
 
 .gradletasknamecache
 .gradle/
+gradle/wrapper/gradle-wrapper.properties
 build/
 bin/
 !gradle-wrapper.jar

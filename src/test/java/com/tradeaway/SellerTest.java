@@ -16,14 +16,19 @@
 
 package com.tradeaway;
 
+import com.tradeaway.core.SecurityConfiguration;
 import com.tradeaway.model.InventoryRepository;
 import com.tradeaway.model.SellerRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.actuate.autoconfigure.ManagementWebSecurityAutoConfiguration;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.security.SecurityAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
@@ -35,6 +40,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
+@WithMockUser
 public class SellerTest {
 
     private String sellerMockData = "{\"name\":\"starkSeller\", \"email\":\"blah.blah.seller@xyz.com\",\"userName\":\"team_stark_seller\",\"password\":\"blahblah\",\"address\":\"asdsad, asdasd,asda\",\"pan\":\"azuij1254f\",\"experience\":\"2\"}";
