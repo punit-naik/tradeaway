@@ -34,7 +34,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
-public class SellerTest {
+public class InventoryTest {
 
     private String sellerMockData = "{\"name\":\"starkSeller\", \"email\":\"blah.blah.seller@xyz.com\",\"userName\":\"team_stark_seller\",\"password\":\"blahblah\",\"address\":\"asdsad, asdasd,asda\",\"pan\":\"azuij1254f\",\"experience\":\"2\"}";
 
