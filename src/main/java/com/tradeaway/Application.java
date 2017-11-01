@@ -21,18 +21,7 @@ public class Application {
         SpringApplication.run(Application.class, args);
     }
 
-    @Bean
-	public CorsFilter corsFilter() {
-		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-		CorsConfiguration config = new CorsConfiguration();
-		config.addAllowedOrigin("*");
-		config.addAllowedHeader("*");
-		config.addAllowedMethod("*");
-		config.addExposedHeader("Authorization");
-		config.addExposedHeader("Content-Type");
-		source.registerCorsConfiguration("/**", config);
-		return new CorsFilter(source);
-	}
+     
 
 
 }
