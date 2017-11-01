@@ -20,9 +20,9 @@ public class Item {
     @NotNull
     private String shortDesc;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name="item_id")
-    private Set<Inventory> inventories;
+    //@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    //@JoinColumn(name="item_id")
+    //private Set<Inventory> inventories;
 
     public long getId() {
         return id;
@@ -64,13 +64,13 @@ public class Item {
         this.shortDesc = shortDesc;
     }
 
-    public Set<Inventory> getInventories()
-    {
-        return this.inventories;
-    }
+    //public Set<Inventory> getInventories()
+    //{
+    //    return this.inventories;
+    //}
 
-    public void setInventories(Set<Inventory> inventories)
-    {
-        this.inventories = inventories;
-    }
+    //public void setInventories(Set<Inventory> inventories)
+    //{
+    //    this.inventories = inventories;
+    //}
 }

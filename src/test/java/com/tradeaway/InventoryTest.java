@@ -62,9 +62,9 @@ public class InventoryTest {
 
     @Before
     public void deleteAllBeforeTests() throws Exception {
+        inventoryRepository.deleteAll();
         sellerRepository.deleteAll();
         itemRepository.deleteAll();
-        inventoryRepository.deleteAll();
     }
 
     @Test
@@ -84,7 +84,7 @@ public class InventoryTest {
         String responseData = mvcResult.getResponse().getContentAsString();
 
         JSONObject jsonObject = new JSONObject(responseData);
-        long sellerId = jsonObject.getLong("id");
+        String sellerLink = ((JSONObject)jsonObject.getJSONArray("links").get(0)).getString("href");
 
         // Item
 
@@ -100,13 +100,13 @@ public class InventoryTest {
         responseData = mvcResult.getResponse().getContentAsString();
 
         jsonObject = new JSONObject(responseData);
-        long itemId = jsonObject.getLong("id");
+        String itemLink = ((JSONObject)jsonObject.getJSONArray("links").get(0)).getString("href");
 
         Map<Object, Object> m = new HashMap<Object, Object>();
         m.put("quantity",2);
         m.put("price",1000);
-        m.put("seller_id",sellerId);
-        m.put("item_id",itemId);
+        m.put("seller",sellerLink);
+        m.put("item",itemLink);
 
         JSONObject inventoryMockData = new JSONObject(m);
 
@@ -133,7 +133,7 @@ public class InventoryTest {
         String responseData = mvcResult.getResponse().getContentAsString();
 
         JSONObject jsonObject = new JSONObject(responseData);
-        long sellerId = jsonObject.getLong("id");
+        String sellerLink = ((JSONObject)jsonObject.getJSONArray("links").get(0)).getString("href");
 
         // Item
 
@@ -149,13 +149,13 @@ public class InventoryTest {
         responseData = mvcResult.getResponse().getContentAsString();
 
         jsonObject = new JSONObject(responseData);
-        long itemId = jsonObject.getLong("id");
+        String itemLink = ((JSONObject)jsonObject.getJSONArray("links").get(0)).getString("href");
 
         Map<Object, Object> m = new HashMap<Object, Object>();
         m.put("quantity",2);
         m.put("price",1000);
-        m.put("seller_id",sellerId);
-        m.put("item_id",itemId);
+        m.put("seller",sellerLink);
+        m.put("itemId",itemLink);
 
         JSONObject inventoryMockData = new JSONObject(m);
 
@@ -185,7 +185,7 @@ public class InventoryTest {
         String responseData = mvcResult.getResponse().getContentAsString();
 
         JSONObject jsonObject = new JSONObject(responseData);
-        long sellerId = jsonObject.getLong("id");
+        String sellerLink = ((JSONObject)jsonObject.getJSONArray("links").get(0)).getString("href");
 
         // Item
 
@@ -201,13 +201,13 @@ public class InventoryTest {
         responseData = mvcResult.getResponse().getContentAsString();
 
         jsonObject = new JSONObject(responseData);
-        long itemId = jsonObject.getLong("id");
+        String itemLink = ((JSONObject)jsonObject.getJSONArray("links").get(0)).getString("href");
 
         Map<Object, Object> m = new HashMap<Object, Object>();
         m.put("quantity",2);
         m.put("price",1000);
-        m.put("seller_id",sellerId);
-        m.put("item_id",itemId);
+        m.put("seller",sellerLink);
+        m.put("item",itemLink);
 
         JSONObject inventoryMockData = new JSONObject(m);
 
@@ -220,16 +220,16 @@ public class InventoryTest {
                 status().isCreated());
 
         mockMvc.perform(
-                get("/inventory/search/findByItemId?item_id={item_id}", itemId)).andExpect(
+                get("/inventory/search/findByItemId?item_id={item_id}", itemLink)).andExpect(
                 status().isOk()).andExpect(
                 jsonPath("$.content[0].item_id").value(
-                        itemId));
+                        itemLink));
 
         mockMvc.perform(
-                get("/inventory/search/findBySellerId?seller_id={seller_id}", sellerId)).andExpect(
+                get("/inventory/search/findBySellerId?seller_id={seller_id}", sellerLink)).andExpect(
                 status().isOk()).andExpect(
                 jsonPath("$.content[0].seller_id").value(
-                        sellerId));
+                        sellerLink));
     }
 
     @Test
@@ -249,7 +249,7 @@ public class InventoryTest {
         String responseData = mvcResult.getResponse().getContentAsString();
 
         JSONObject jsonObject = new JSONObject(responseData);
-        long sellerId = jsonObject.getLong("id");
+        String sellerLink = ((JSONObject)jsonObject.getJSONArray("links").get(0)).getString("href");
 
         // Item
 
@@ -265,13 +265,13 @@ public class InventoryTest {
         responseData = mvcResult.getResponse().getContentAsString();
 
         jsonObject = new JSONObject(responseData);
-        long itemId = jsonObject.getLong("id");
+        String itemLink = ((JSONObject)jsonObject.getJSONArray("links").get(0)).getString("href");
 
         Map<Object, Object> m = new HashMap<Object, Object>();
         m.put("quantity",2);
         m.put("price",1000);
-        m.put("seller_id",sellerId);
-        m.put("item_id",itemId);
+        m.put("seller",sellerLink);
+        m.put("item",itemLink);
 
         JSONObject inventoryMockData = new JSONObject(m);
 
@@ -304,7 +304,7 @@ public class InventoryTest {
         String responseData = mvcResult.getResponse().getContentAsString();
 
         JSONObject jsonObject = new JSONObject(responseData);
-        long sellerId = jsonObject.getLong("id");
+        String sellerLink = ((JSONObject)jsonObject.getJSONArray("links").get(0)).getString("href");
 
         // Item
 
@@ -320,13 +320,13 @@ public class InventoryTest {
         responseData = mvcResult.getResponse().getContentAsString();
 
         jsonObject = new JSONObject(responseData);
-        long itemId = jsonObject.getLong("id");
+        String itemLink = ((JSONObject)jsonObject.getJSONArray("links").get(0)).getString("href");
 
         Map<Object, Object> m = new HashMap<Object, Object>();
         m.put("quantity",2);
         m.put("price",1000);
-        m.put("seller_id",sellerId);
-        m.put("item_id",itemId);
+        m.put("seller",sellerLink);
+        m.put("item",itemLink);
 
         JSONObject inventoryMockData = new JSONObject(m);
 
@@ -360,7 +360,7 @@ public class InventoryTest {
         String responseData = mvcResult.getResponse().getContentAsString();
 
         JSONObject jsonObject = new JSONObject(responseData);
-        long sellerId = jsonObject.getLong("id");
+        String sellerLink = ((JSONObject)jsonObject.getJSONArray("links").get(0)).getString("href");
 
         // Item
 
@@ -376,13 +376,13 @@ public class InventoryTest {
         responseData = mvcResult.getResponse().getContentAsString();
 
         jsonObject = new JSONObject(responseData);
-        long itemId = jsonObject.getLong("id");
+        String itemLink = ((JSONObject)jsonObject.getJSONArray("links").get(0)).getString("href");
 
         Map<Object, Object> m = new HashMap<Object, Object>();
         m.put("quantity",2);
         m.put("price",1000);
-        m.put("seller_id",sellerId);
-        m.put("item_id",itemId);
+        m.put("seller",sellerLink);
+        m.put("item",itemLink);
 
         JSONObject inventoryMockData = new JSONObject(m);
 

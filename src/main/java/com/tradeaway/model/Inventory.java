@@ -9,6 +9,12 @@ public class Inventory {
     @GeneratedValue
     private Long id;
 
+    @ManyToOne(cascade = CascadeType.ALL)
+    private Seller seller;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    private Item item;
+
     private int quantity;
 
     private int price;
@@ -35,5 +41,21 @@ public class Inventory {
 
     public void setPrice(int price) {
         this.price = price;
+    }
+
+    public Seller getSeller() {
+        return seller;
+    }
+
+    public void setSeller(Seller seller) {
+        this.seller = seller;
+    }
+
+    public Item getItem() {
+        return item;
+    }
+
+    public void setItem(Item item) {
+        this.item = item;
     }
 }

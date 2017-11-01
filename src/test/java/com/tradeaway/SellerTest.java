@@ -16,6 +16,7 @@
 
 package com.tradeaway;
 
+import com.tradeaway.model.InventoryRepository;
 import com.tradeaway.model.SellerRepository;
 import org.junit.Before;
 import org.junit.Test;
@@ -51,8 +52,12 @@ public class SellerTest {
     @Autowired
     private SellerRepository sellerRepository;
 
+    @Autowired
+    private  InventoryRepository inventoryRepository;
+
     @Before
     public void deleteAllBeforeTests() throws Exception {
+        inventoryRepository.deleteAll();
         sellerRepository.deleteAll();
     }
 

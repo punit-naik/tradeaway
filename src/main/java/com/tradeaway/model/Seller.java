@@ -9,11 +9,13 @@ public class Seller extends User {
 
     @NotNull
     private String pan;
+
     @NotNull
     private int experience;
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name="seller_id")
-    private Set<Inventory> inventories;
+
+//    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+//    @JoinColumn(name="seller_id")
+//    private Set<Inventory> inventories;
 
     public String getPan() {
         return pan;
@@ -31,13 +33,13 @@ public class Seller extends User {
         this.experience = experience;
     }
 
-    public Set<Inventory> getInventories()
-    {
-        return this.inventories;
-    }
-
-    public void setInventories(Set<Inventory> inventories)
-    {
-        this.inventories = inventories;
-    }
+//    public Set<Inventory> getInventories()
+//    {
+//        return this.inventories;
+//    }
+//
+//    public void setInventories(Set<Inventory> inventories)
+//    {
+//        this.inventories = inventories;
+//    }
 }
