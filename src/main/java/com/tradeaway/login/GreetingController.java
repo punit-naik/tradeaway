@@ -30,8 +30,10 @@ public class GreetingController {
         if(session != null) {
             session.invalidate();
         }
-        for(Cookie cookie : request.getCookies()) {
-            cookie.setMaxAge(0);
+        if (request.getCookies()!=null ) {
+            for (Cookie cookie : request.getCookies()) {
+                cookie.setMaxAge(0);
+            }
         }
 
         return "logout";
