@@ -30,12 +30,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable().authorizeRequests()
-                    .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-                    .antMatchers("/**").permitAll();
+                .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+                .antMatchers("/**").authenticated().and().
                     /*.antMatchers("/**").hasAnyRole()*/
                     /*.anyRequest().authenticated().and().*/
                /* formLogin().loginPage("/login").permitAll().and().*/
-                   /* httpBasic().authenticationEntryPoint(authenticationEntryPoint);*/
+                       httpBasic().authenticationEntryPoint(authenticationEntryPoint);
                 /*logout().logoutUrl("/logout").invalidateHttpSession(true).clearAuthentication(true).deleteCookies("JSESSIONID").permitAll()*/
                 /*http.logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                 .logoutSuccessUrl("/logout.done").deleteCookies("JSESSIONID")
@@ -48,7 +48,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
                 "select user_name as username, password, true as enabled from buyer union " +
                 "select user_name as username, password, true as enabled from seller) A where username = ?")
                 .authoritiesByUsernameQuery("select * from (select user_name as username, 'ROLE_FOO'  from buyer union "+
-                "select user_name as username, 'ROLE_FOO' from seller ) B where username =?");
+                        "select user_name as username, 'ROLE_FOO' from seller ) B where username =?");
     }
 
     @Override
