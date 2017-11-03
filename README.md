@@ -2,6 +2,10 @@
 
 Online e-commerce platform
 
+This project is a service layer for the project. Please refer following url for UI
+
+https://github.com/sujithtw/tradeaway-ui 
+
 ## Build
 
 Run ``build.sh`` to build the service
